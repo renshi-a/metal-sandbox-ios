@@ -9,18 +9,45 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var sandboxCases: SandboxCases = .clearColor
+    @State var showSandboxList: Bool = false
+    @State var currentSandbox: SandboxCases = .clearColor
     
     var body: some View {
         VStack(spacing: .zero) {
-            switch sandboxCases {
+            switch currentSandbox {
             case .clearColor:
                 ClearColorView()
+            
+            case .lighting:
+                LightingView()
+            }
+        }
+        .overlay(alignment: .topTrailing) {
+            Button(action: { self.showSandboxList = true }, label: {
+                Image(systemName: "cube.transparent")
+                    .font(.system(.title))
+                    .foregroundStyle(.gray)
+                    .padding()
+            })
+        }
+        .sheet(isPresented: $showSandboxList) {
+            List {
+                ForEach(SandboxCases.allCases, id: \.self) { sandbox in
+                    HStack {
+                        Text(sandbox.displayTitle)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.system(.caption))
+                            .foregroundStyle(.gray)
+                    }
+                    .padding(8)
+                    .contentShape(.rect)
+                    .onTapGesture {
+                        self.currentSandbox = sandbox
+                        self.showSandboxList = false
+                    }
+                }
             }
         }
     }
-}
-
-#Preview {
-    ContentView()
 }

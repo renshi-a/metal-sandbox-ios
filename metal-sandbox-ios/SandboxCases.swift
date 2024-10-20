@@ -7,6 +7,17 @@
 
 import Foundation
 
-enum SandboxCases {
+enum SandboxCases: CaseIterable {
     case clearColor
+    case lighting
+    
+    var displayTitle: String {
+        switch self {
+        case .clearColor:
+            "Clear Color"
+            
+        case .lighting:
+            "Lighting"
+        }
+    }
 }

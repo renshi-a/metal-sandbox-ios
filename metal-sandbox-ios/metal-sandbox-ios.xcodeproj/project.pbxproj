@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC1A54AA2CC4E50400A989B4 /* LightingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54A92CC4E50400A989B4 /* LightingView.swift */; };
 		CCF0BE3C2CC4C10D00184E5D /* metal_sandbox_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE3B2CC4C10D00184E5D /* metal_sandbox_iosApp.swift */; };
 		CCF0BE3E2CC4C10D00184E5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE3D2CC4C10D00184E5D /* ContentView.swift */; };
 		CCF0BE402CC4C10F00184E5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF0BE3F2CC4C10F00184E5D /* Assets.xcassets */; };
@@ -14,11 +15,12 @@
 		CCF0BE4D2CC4C28900184E5D /* ClearColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE4C2CC4C28900184E5D /* ClearColorView.swift */; };
 		CCF0BE4F2CC4C30D00184E5D /* MTLClearColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE4E2CC4C30D00184E5D /* MTLClearColorViewController.swift */; };
 		CCF0BE512CC4C4A300184E5D /* MTLClearColorRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE502CC4C4A300184E5D /* MTLClearColorRenderer.swift */; };
-		CCF0BE532CC4C66300184E5D /* 001ClearColorVertex.metal in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE522CC4C66300184E5D /* 001ClearColorVertex.metal */; };
-		CCF0BE552CC4C67900184E5D /* 001ClearColorFragment.metal in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE542CC4C67900184E5D /* 001ClearColorFragment.metal */; };
+		CCF0BE532CC4C66300184E5D /* ClearColorVertex.metal in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE522CC4C66300184E5D /* ClearColorVertex.metal */; };
+		CCF0BE552CC4C67900184E5D /* ClearColorFragment.metal in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE542CC4C67900184E5D /* ClearColorFragment.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC1A54A92CC4E50400A989B4 /* LightingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightingView.swift; sourceTree = "<group>"; };
 		CCF0BE382CC4C10D00184E5D /* metal-sandbox-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "metal-sandbox-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF0BE3B2CC4C10D00184E5D /* metal_sandbox_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = metal_sandbox_iosApp.swift; sourceTree = "<group>"; };
 		CCF0BE3D2CC4C10D00184E5D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,8 +29,8 @@
 		CCF0BE4C2CC4C28900184E5D /* ClearColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearColorView.swift; sourceTree = "<group>"; };
 		CCF0BE4E2CC4C30D00184E5D /* MTLClearColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTLClearColorViewController.swift; sourceTree = "<group>"; };
 		CCF0BE502CC4C4A300184E5D /* MTLClearColorRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTLClearColorRenderer.swift; sourceTree = "<group>"; };
-		CCF0BE522CC4C66300184E5D /* 001ClearColorVertex.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = 001ClearColorVertex.metal; sourceTree = "<group>"; };
-		CCF0BE542CC4C67900184E5D /* 001ClearColorFragment.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = 001ClearColorFragment.metal; sourceTree = "<group>"; };
+		CCF0BE522CC4C66300184E5D /* ClearColorVertex.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ClearColorVertex.metal; sourceTree = "<group>"; };
+		CCF0BE542CC4C67900184E5D /* ClearColorFragment.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ClearColorFragment.metal; sourceTree = "<group>"; };
 		CCF0BE572CC4CF0900184E5D /* ClearColorShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClearColorShaderTypes.h; sourceTree = "<group>"; };
 		CCF0BE582CC4CF7900184E5D /* metal-sandbox-ios-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "metal-sandbox-ios-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,9 +46,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC1A54A82CC4E4E500A989B4 /* 002Lighting */ = {
+			isa = PBXGroup;
+			children = (
+				CC1A54A92CC4E50400A989B4 /* LightingView.swift */,
+			);
+			path = 002Lighting;
+			sourceTree = "<group>";
+		};
 		CCF0BE2F2CC4C10D00184E5D = {
 			isa = PBXGroup;
 			children = (
+				CC1A54A82CC4E4E500A989B4 /* 002Lighting */,
 				CCF0BE492CC4C1C000184E5D /* 001ClearColor */,
 				CCF0BE582CC4CF7900184E5D /* metal-sandbox-ios-Bridging-Header.h */,
 				CCF0BE3B2CC4C10D00184E5D /* metal_sandbox_iosApp.swift */,
@@ -71,8 +82,8 @@
 				CCF0BE4C2CC4C28900184E5D /* ClearColorView.swift */,
 				CCF0BE4E2CC4C30D00184E5D /* MTLClearColorViewController.swift */,
 				CCF0BE502CC4C4A300184E5D /* MTLClearColorRenderer.swift */,
-				CCF0BE522CC4C66300184E5D /* 001ClearColorVertex.metal */,
-				CCF0BE542CC4C67900184E5D /* 001ClearColorFragment.metal */,
+				CCF0BE522CC4C66300184E5D /* ClearColorVertex.metal */,
+				CCF0BE542CC4C67900184E5D /* ClearColorFragment.metal */,
 				CCF0BE572CC4CF0900184E5D /* ClearColorShaderTypes.h */,
 			);
 			path = 001ClearColor;
@@ -94,6 +105,8 @@
 			dependencies = (
 			);
 			name = "metal-sandbox-ios";
+			packageProductDependencies = (
+			);
 			productName = "metal-sandbox-ios";
 			productReference = CCF0BE382CC4C10D00184E5D /* metal-sandbox-ios.app */;
 			productType = "com.apple.product-type.application";
@@ -123,6 +136,8 @@
 				Base,
 			);
 			mainGroup = CCF0BE2F2CC4C10D00184E5D;
+			packageReferences = (
+			);
 			productRefGroup = CCF0BE392CC4C10D00184E5D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -151,11 +166,12 @@
 				CCF0BE512CC4C4A300184E5D /* MTLClearColorRenderer.swift in Sources */,
 				CCF0BE3E2CC4C10D00184E5D /* ContentView.swift in Sources */,
 				CCF0BE4B2CC4C1E400184E5D /* SandboxCases.swift in Sources */,
-				CCF0BE532CC4C66300184E5D /* 001ClearColorVertex.metal in Sources */,
+				CCF0BE532CC4C66300184E5D /* ClearColorVertex.metal in Sources */,
 				CCF0BE4F2CC4C30D00184E5D /* MTLClearColorViewController.swift in Sources */,
 				CCF0BE3C2CC4C10D00184E5D /* metal_sandbox_iosApp.swift in Sources */,
 				CCF0BE4D2CC4C28900184E5D /* ClearColorView.swift in Sources */,
-				CCF0BE552CC4C67900184E5D /* 001ClearColorFragment.metal in Sources */,
+				CCF0BE552CC4C67900184E5D /* ClearColorFragment.metal in Sources */,
+				CC1A54AA2CC4E50400A989B4 /* LightingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
