@@ -10,7 +10,7 @@ import SwiftUI
 struct LightingView: View {
     var body: some View {
         VStack {
-            Text("lighting")
+            MTLLightingView()
         }
     }
 }

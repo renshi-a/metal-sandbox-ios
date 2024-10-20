@@ -3,3 +3,4 @@
 //
 
 #import "001ClearColor/ClearColorShaderTypes.h"
+#import "002Lighting/LightingShadertypes.h"
