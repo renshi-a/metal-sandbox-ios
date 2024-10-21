@@ -35,8 +35,12 @@ class MTLLightingRenderer {
         self.renderPipelineState = try? device.makeRenderPipelineState(descriptor: descriptor)
         
         let indices: [UInt16] = [
-            0, 1, 3,
-            1, 2, 3,
+            // front
+            0, 1, 2,
+            2, 3, 0,
+            
+            // right
+            
         ]
         let length = MemoryLayout<UInt16>.size * indices.count
         guard let buffer = device.makeBuffer(length: length) else {
@@ -67,15 +71,22 @@ class MTLLightingRenderer {
         let w = Float(mtkView.frame.size.width)
         let h = Float(mtkView.frame.size.height)
         let resolusion = simd_make_float2(w, h);
-        var uniforms = ClearColorUniforms(resolution: resolusion)
-        var verticies: [ClearColorVertex] = [
-            ClearColorVertex(position: vector_float2(0.0,   0.0)),
-            ClearColorVertex(position: vector_float2(  w,   0.0)),
-            ClearColorVertex(position: vector_float2(  w,     h)),
-            ClearColorVertex(position: vector_float2(0.0,     h))
+        var uniforms = LightingUniforms(resolution: resolusion)
+        var verticies: [LightingVertex] = [
+            // front
+            LightingVertex(position: vector_float3(-0.5, -0.5, 0.5)),
+            LightingVertex(position: vector_float3( 0.5, -0.5, 0.5)),
+            LightingVertex(position: vector_float3( 0.5,  0.5, 0.5)),
+            LightingVertex(position: vector_float3(-0.5,  0.5, 0.5)),
+            
+            // back
+            LightingVertex(position: vector_float3(-0.5, -0.5, -0.5)),
+            LightingVertex(position: vector_float3(-0.5,  0.5, -0.5)),
+            LightingVertex(position: vector_float3( 0.5,  0.5, -0.5)),
+            LightingVertex(position: vector_float3( 0.5, -0.5, -0.5)),
         ]
-        encorder.setVertexBytes(&verticies, length: MemoryLayout<ClearColorVertex>.stride * verticies.count, index: 0)
-        encorder.setVertexBytes(&uniforms, length: MemoryLayout<ClearColorUniforms>.stride, index: 1)
+        encorder.setVertexBytes(&verticies, length: MemoryLayout<LightingVertex>.stride * verticies.count, index: 0)
+        encorder.setVertexBytes(&uniforms, length: MemoryLayout<LightingUniforms>.stride, index: 1)
         encorder.drawIndexedPrimitives(type: .triangle,
                                        indexCount: 6,
                                        indexType: .uint16,
