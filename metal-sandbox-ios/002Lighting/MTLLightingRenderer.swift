@@ -32,6 +32,7 @@ class MTLLightingRenderer {
         descriptor.colorAttachments[0].pixelFormat = .rgba8Unorm_srgb
         descriptor.vertexFunction = vertexFunction
         descriptor.fragmentFunction = fragmentFunction
+        descriptor.depthAttachmentPixelFormat = .depth16Unorm
         self.renderPipelineState = try? device.makeRenderPipelineState(descriptor: descriptor)
         
         let indices: [UInt16] = [
@@ -40,7 +41,24 @@ class MTLLightingRenderer {
             2, 3, 0,
             
             // right
+            1, 7, 6,
+            6, 2, 1,
             
+            // back
+            7, 4, 5,
+            5, 6, 7,
+            
+            // left
+            5, 4, 3,
+            3, 4, 0,
+            
+            // top
+            5, 2, 6,
+            2, 5, 3,
+            
+            // bottom
+            1, 7, 0,
+            0, 4, 7
         ]
         let length = MemoryLayout<UInt16>.size * indices.count
         guard let buffer = device.makeBuffer(length: length) else {
@@ -53,25 +71,32 @@ class MTLLightingRenderer {
     public func draw(mtkView: MTKView) {
         mtkView.colorPixelFormat = .rgba8Unorm_srgb
         mtkView.clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        mtkView.depthStencilPixelFormat = .depth16Unorm
+        mtkView.clearDepth = 1.0
         
         guard let commandBuffer = commandQueue?.makeCommandBuffer() else {
+            print("MTLLightingRenderer.draw() Cloudn't create CommandBuffer.")
             return
         }
         
         guard let renderPassDescriptor = mtkView.currentRenderPassDescriptor else {
+            print("MTLLightingRenderer.draw() Cloudn't get RenderPassDescriptor.")
             return
         }
         
         guard let encorder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else {
+            print("MTLLightingRenderer.draw() Cloudn't create RenderCommandEncoder.")
             return
         }
         
+        let des = MTLDepthStencilDescriptor()
+        des.depthCompareFunction = .less
+        des.isDepthWriteEnabled = true
+        let state = device.makeDepthStencilState(descriptor: des)
+        
+        encorder.setDepthStencilState(state)
         encorder.setRenderPipelineState(renderPipelineState!)
         
-        let w = Float(mtkView.frame.size.width)
-        let h = Float(mtkView.frame.size.height)
-        let resolusion = simd_make_float2(w, h);
-        var uniforms = LightingUniforms(resolution: resolusion)
         var verticies: [LightingVertex] = [
             // front
             LightingVertex(position: vector_float3(-0.5, -0.5, 0.5)),
@@ -86,17 +111,17 @@ class MTLLightingRenderer {
             LightingVertex(position: vector_float3( 0.5, -0.5, -0.5)),
         ]
         encorder.setVertexBytes(&verticies, length: MemoryLayout<LightingVertex>.stride * verticies.count, index: 0)
-        encorder.setVertexBytes(&uniforms, length: MemoryLayout<LightingUniforms>.stride, index: 1)
         encorder.drawIndexedPrimitives(type: .triangle,
-                                       indexCount: 6,
+                                       indexCount: 6 * 6,
                                        indexType: .uint16,
                                        indexBuffer: self.indexBuffer!,
                                        indexBufferOffset: 0,
-                                       instanceCount: 2)
+                                       instanceCount: 2 * 6)
         
         encorder.endEncoding()
         
         guard let drawable = mtkView.currentDrawable else {
+            print("MTLLightingRenderer.draw() Cloudn't get currentDrawable.")
             return
         }
         commandBuffer.present(drawable)
