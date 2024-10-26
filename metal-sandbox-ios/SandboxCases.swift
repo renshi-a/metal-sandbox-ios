@@ -10,6 +10,7 @@ import Foundation
 enum SandboxCases: CaseIterable {
     case clearColor
     case lighting
+    case uniformTime
     
     var displayTitle: String {
         switch self {
@@ -18,6 +19,9 @@ enum SandboxCases: CaseIterable {
             
         case .lighting:
             "Lighting"
+            
+        case .uniformTime:
+            "UniformTime"
         }
     }
 }

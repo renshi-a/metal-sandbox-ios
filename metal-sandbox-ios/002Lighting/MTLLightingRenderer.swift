@@ -9,7 +9,6 @@ import Foundation
 import MetalKit
 
 
-
 class MTLLightingRenderer {
     let device: MTLDevice
     var commandQueue: MTLCommandQueue?

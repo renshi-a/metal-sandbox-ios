@@ -12,10 +12,10 @@
 
 typedef struct ClearColorUniforms {
     simd_float2 resolution;
-} Uniforms;
+} ClearColorUniforms;
 
 typedef struct ClearColorVertex {
     vector_float2 position;
-} Vertex;
+} ClearColorVertex;
 
 #endif /* ClearColorShaderTypes_h */
