@@ -11,6 +11,7 @@ enum SandboxCases: CaseIterable {
     case clearColor
     case lighting
     case uniformTime
+    case glFragCoord
     
     var displayTitle: String {
         switch self {
@@ -22,6 +23,9 @@ enum SandboxCases: CaseIterable {
             
         case .uniformTime:
             "UniformTime"
+            
+        case .glFragCoord:
+            "GLFragCoord"
         }
     }
 }

@@ -24,6 +24,9 @@ struct ContentView: View {
                     
                 case .uniformTime:
                     UniformTimeView()
+                    
+                case .glFragCoord:
+                    GLFragCoordView()
                 }
             }
             .navigationTitle(currentSandbox.displayTitle)

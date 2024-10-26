@@ -18,6 +18,11 @@
 		CC1A54C42CCCFF2400A989B4 /* MTLUniformTimeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54C32CCCFF2400A989B4 /* MTLUniformTimeRenderer.swift */; };
 		CC1A54C62CCCFF3D00A989B4 /* UniformTimeVertex.metal in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54C52CCCFF3D00A989B4 /* UniformTimeVertex.metal */; };
 		CC1A54C82CCCFF4900A989B4 /* UniformTimeFragment.metal in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54C72CCCFF4900A989B4 /* UniformTimeFragment.metal */; };
+		CC1A54CE2CCD111600A989B4 /* GLFragCoordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54CD2CCD111600A989B4 /* GLFragCoordView.swift */; };
+		CC1A54D02CCD113500A989B4 /* MTLGLFragCoordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54CF2CCD113500A989B4 /* MTLGLFragCoordViewController.swift */; };
+		CC1A54D22CCD114700A989B4 /* MTLGLFragCoordRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54D12CCD114700A989B4 /* MTLGLFragCoordRenderer.swift */; };
+		CC1A54D42CCD115600A989B4 /* GLFragCoordVertex.metal in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54D32CCD115600A989B4 /* GLFragCoordVertex.metal */; };
+		CC1A54D62CCD116900A989B4 /* GLFragCoordFragment.metal in Sources */ = {isa = PBXBuildFile; fileRef = CC1A54D52CCD116900A989B4 /* GLFragCoordFragment.metal */; };
 		CCF0BE3C2CC4C10D00184E5D /* metal_sandbox_iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE3B2CC4C10D00184E5D /* metal_sandbox_iosApp.swift */; };
 		CCF0BE3E2CC4C10D00184E5D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCF0BE3D2CC4C10D00184E5D /* ContentView.swift */; };
 		CCF0BE402CC4C10F00184E5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCF0BE3F2CC4C10F00184E5D /* Assets.xcassets */; };
@@ -43,6 +48,12 @@
 		CC1A54C52CCCFF3D00A989B4 /* UniformTimeVertex.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = UniformTimeVertex.metal; sourceTree = "<group>"; };
 		CC1A54C72CCCFF4900A989B4 /* UniformTimeFragment.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = UniformTimeFragment.metal; sourceTree = "<group>"; };
 		CC1A54C92CCCFF5900A989B4 /* UniformTImeShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UniformTImeShaderTypes.h; sourceTree = "<group>"; };
+		CC1A54CD2CCD111600A989B4 /* GLFragCoordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GLFragCoordView.swift; sourceTree = "<group>"; };
+		CC1A54CF2CCD113500A989B4 /* MTLGLFragCoordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTLGLFragCoordViewController.swift; sourceTree = "<group>"; };
+		CC1A54D12CCD114700A989B4 /* MTLGLFragCoordRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTLGLFragCoordRenderer.swift; sourceTree = "<group>"; };
+		CC1A54D32CCD115600A989B4 /* GLFragCoordVertex.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = GLFragCoordVertex.metal; sourceTree = "<group>"; };
+		CC1A54D52CCD116900A989B4 /* GLFragCoordFragment.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = GLFragCoordFragment.metal; sourceTree = "<group>"; };
+		CC1A54D72CCD117D00A989B4 /* GLFragCoordShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GLFragCoordShaderTypes.h; sourceTree = "<group>"; };
 		CCF0BE382CC4C10D00184E5D /* metal-sandbox-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "metal-sandbox-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF0BE3B2CC4C10D00184E5D /* metal_sandbox_iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = metal_sandbox_iosApp.swift; sourceTree = "<group>"; };
 		CCF0BE3D2CC4C10D00184E5D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,9 +106,23 @@
 			path = 003UniformTime;
 			sourceTree = "<group>";
 		};
+		CC1A54CA2CCD107800A989B4 /* 004GLFragCoord */ = {
+			isa = PBXGroup;
+			children = (
+				CC1A54CD2CCD111600A989B4 /* GLFragCoordView.swift */,
+				CC1A54CF2CCD113500A989B4 /* MTLGLFragCoordViewController.swift */,
+				CC1A54D12CCD114700A989B4 /* MTLGLFragCoordRenderer.swift */,
+				CC1A54D32CCD115600A989B4 /* GLFragCoordVertex.metal */,
+				CC1A54D52CCD116900A989B4 /* GLFragCoordFragment.metal */,
+				CC1A54D72CCD117D00A989B4 /* GLFragCoordShaderTypes.h */,
+			);
+			path = 004GLFragCoord;
+			sourceTree = "<group>";
+		};
 		CCF0BE2F2CC4C10D00184E5D = {
 			isa = PBXGroup;
 			children = (
+				CC1A54CA2CCD107800A989B4 /* 004GLFragCoord */,
 				CC1A54BE2CCCFEBF00A989B4 /* 003UniformTime */,
 				CC1A54A82CC4E4E500A989B4 /* 002Lighting */,
 				CCF0BE492CC4C1C000184E5D /* 001ClearColor */,
@@ -205,9 +230,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1A54D62CCD116900A989B4 /* GLFragCoordFragment.metal in Sources */,
 				CCF0BE512CC4C4A300184E5D /* MTLClearColorRenderer.swift in Sources */,
+				CC1A54D22CCD114700A989B4 /* MTLGLFragCoordRenderer.swift in Sources */,
+				CC1A54D42CCD115600A989B4 /* GLFragCoordVertex.metal in Sources */,
 				CC1A54C42CCCFF2400A989B4 /* MTLUniformTimeRenderer.swift in Sources */,
 				CCF0BE3E2CC4C10D00184E5D /* ContentView.swift in Sources */,
+				CC1A54D02CCD113500A989B4 /* MTLGLFragCoordViewController.swift in Sources */,
 				CC1A54B52CC4EA2000A989B4 /* LightingFragment.metal in Sources */,
 				CC1A54BD2CCCEEF400A989B4 /* LightingMath.swift in Sources */,
 				CC1A54C02CCCFEE300A989B4 /* UniformTime.swift in Sources */,
@@ -218,6 +247,7 @@
 				CC1A54B32CC4EA1000A989B4 /* LightingVertex.metal in Sources */,
 				CCF0BE3C2CC4C10D00184E5D /* metal_sandbox_iosApp.swift in Sources */,
 				CCF0BE4D2CC4C28900184E5D /* ClearColorView.swift in Sources */,
+				CC1A54CE2CCD111600A989B4 /* GLFragCoordView.swift in Sources */,
 				CCF0BE552CC4C67900184E5D /* ClearColorFragment.metal in Sources */,
 				CC1A54B12CC4E95A00A989B4 /* MTLLightingRenderer.swift in Sources */,
 				CC1A54C62CCCFF3D00A989B4 /* UniformTimeVertex.metal in Sources */,
