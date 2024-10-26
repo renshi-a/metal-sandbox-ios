@@ -12,6 +12,7 @@ class MTLLightingRenderer {
     let device: MTLDevice
     var commandQueue: MTLCommandQueue?
     var renderPipelineState: MTLRenderPipelineState?
+    var depthStencilState: MTLDepthStencilState?
     var indexBuffer: MTLBuffer?
     
     init(device: MTLDevice) {
@@ -28,12 +29,17 @@ class MTLLightingRenderer {
         
         let vertexFunction = library.makeFunction(name: "lighting_vertex_main")
         let fragmentFunction = library.makeFunction(name: "lighting_fragment_main")
-        let descriptor = MTLRenderPipelineDescriptor()
-        descriptor.colorAttachments[0].pixelFormat = .rgba8Unorm_srgb
-        descriptor.vertexFunction = vertexFunction
-        descriptor.fragmentFunction = fragmentFunction
-        descriptor.depthAttachmentPixelFormat = .depth16Unorm
-        self.renderPipelineState = try? device.makeRenderPipelineState(descriptor: descriptor)
+        let renderDescriptor = MTLRenderPipelineDescriptor()
+        renderDescriptor.colorAttachments[0].pixelFormat = .rgba8Unorm_srgb
+        renderDescriptor.depthAttachmentPixelFormat = .depth16Unorm
+        renderDescriptor.vertexFunction = vertexFunction
+        renderDescriptor.fragmentFunction = fragmentFunction
+        self.renderPipelineState = try? device.makeRenderPipelineState(descriptor: renderDescriptor)
+        
+        let depthStencilDescriptor = MTLDepthStencilDescriptor()
+        depthStencilDescriptor.depthCompareFunction = .less
+        depthStencilDescriptor.isDepthWriteEnabled = true
+        self.depthStencilState = device.makeDepthStencilState(descriptor: depthStencilDescriptor)
         
         let indices: [UInt16] = [
             // front
@@ -89,12 +95,7 @@ class MTLLightingRenderer {
             return
         }
         
-        let des = MTLDepthStencilDescriptor()
-        des.depthCompareFunction = .less
-        des.isDepthWriteEnabled = true
-        let state = device.makeDepthStencilState(descriptor: des)
-        
-        encorder.setDepthStencilState(state)
+        encorder.setDepthStencilState(depthStencilState!)
         encorder.setRenderPipelineState(renderPipelineState!)
         
         var verticies: [LightingVertex] = [
