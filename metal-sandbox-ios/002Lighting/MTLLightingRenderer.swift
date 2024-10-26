@@ -8,12 +8,18 @@
 import Foundation
 import MetalKit
 
+
+
 class MTLLightingRenderer {
     let device: MTLDevice
     var commandQueue: MTLCommandQueue?
+    
+    // buffer
+    var indexBuffer: MTLBuffer?
+    
+    // states
     var renderPipelineState: MTLRenderPipelineState?
     var depthStencilState: MTLDepthStencilState?
-    var indexBuffer: MTLBuffer?
     
     init(device: MTLDevice) {
         self.device = device
@@ -112,6 +118,9 @@ class MTLLightingRenderer {
             LightingVertex(position: vector_float3( 0.5, -0.5, -0.5)),
         ]
         encorder.setVertexBytes(&verticies, length: MemoryLayout<LightingVertex>.stride * verticies.count, index: 0)
+        
+        
+        
         encorder.drawIndexedPrimitives(type: .triangle,
                                        indexCount: 6 * 6,
                                        indexType: .uint16,

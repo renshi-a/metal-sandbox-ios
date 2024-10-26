@@ -11,7 +11,7 @@
 #include <simd/simd.h>
 
 typedef struct LightingUniforms {
-    simd_float2 resolution;
+    simd_float4x4 modelMatrix;
 } LightingUniforms;
 
 typedef struct LightingVertex {
