@@ -47,3 +47,14 @@ float4 clear_color_fragment_main(FragmentIn in [[stage_in]]) {
 
 ## 003 UniformTime
 
+<img src="./preview/003_uniform_time_ss.gif"  width="200px"/>
+
+Pass the Uniform variable to the fragment shader, which measures the elapsed time for each frame drawn. sin varies periodically between -1 and 1, depending on the elapsed time.
+
+```c
+[[fragment]]
+float4 uniform_time_fragment_main(FragmentIn in [[stage_in]],
+                                 constant UniformTimeFragmentUniforms& uniforms [[buffer(0)]] ) {
+    return float4(abs(sin(uniforms.time)), 0.f, 0.f, 1.0f);
+}
+```

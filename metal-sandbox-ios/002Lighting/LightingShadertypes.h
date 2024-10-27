@@ -16,6 +16,7 @@ typedef struct LightingUniforms {
 
 typedef struct LightingVertex {
     vector_float3 position;
+    vector_float3 normal;
 } LightingVertex;
 
 #endif /* LightingShadertypes_h */

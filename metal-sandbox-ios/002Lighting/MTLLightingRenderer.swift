@@ -54,24 +54,24 @@ class MTLLightingRenderer {
             2, 3, 0,
             
             // right
-            1, 7, 6,
-            6, 2, 1,
+            4, 5, 6,
+            6, 7, 4,
             
             // back
-            7, 4, 5,
-            5, 6, 7,
+            8, 9, 10,
+            10, 11, 8,
             
             // left
-            5, 4, 3,
-            3, 4, 0,
+            12, 13, 14,
+            14, 15, 12,
             
             // top
-            5, 2, 6,
-            2, 5, 3,
+            16, 17, 18,
+            18, 19, 16,
             
             // bottom
-            1, 7, 0,
-            0, 4, 7
+            20, 21, 22,
+            22, 23, 20
         ]
         let length = MemoryLayout<UInt16>.size * indices.count
         guard let buffer = device.makeBuffer(length: length) else {
@@ -107,22 +107,49 @@ class MTLLightingRenderer {
         
         var verticies: [LightingVertex] = [
             // front
-            LightingVertex(position: vector_float3(-0.5, -0.5, 0.5)),
-            LightingVertex(position: vector_float3( 0.5, -0.5, 0.5)),
-            LightingVertex(position: vector_float3( 0.5,  0.5, 0.5)),
-            LightingVertex(position: vector_float3(-0.5,  0.5, 0.5)),
+            LightingVertex(position: vector_float3(-0.5, -0.5, 0.5), normal: vector_float3(0.0, 0.0, 1.0)),
+            LightingVertex(position: vector_float3( 0.5, -0.5, 0.5), normal: vector_float3(0.0, 0.0, 1.0)),
+            LightingVertex(position: vector_float3( 0.5,  0.5, 0.5), normal: vector_float3(0.0, 0.0, 1.0)),
+            LightingVertex(position: vector_float3(-0.5,  0.5, 0.5), normal: vector_float3(0.0, 0.0, 1.0)),
+            
+            // right
+            LightingVertex(position: vector_float3( 0.5, -0.5, 0.5), normal: vector_float3(1.0, 0.0, 0.0)),
+            LightingVertex(position: vector_float3( 0.5, -0.5, -0.5), normal: vector_float3(1.0, 0.0, 0.0)),
+            LightingVertex(position: vector_float3( 0.5,  0.5, -0.5), normal: vector_float3(1.0, 0.0, 0.0)),
+            LightingVertex(position: vector_float3( 0.5,  0.5, 0.5), normal: vector_float3(1.0, 0.0, 0.0)),
             
             // back
-            LightingVertex(position: vector_float3(-0.5, -0.5, -0.5)),
-            LightingVertex(position: vector_float3(-0.5,  0.5, -0.5)),
-            LightingVertex(position: vector_float3( 0.5,  0.5, -0.5)),
-            LightingVertex(position: vector_float3( 0.5, -0.5, -0.5)),
+            LightingVertex(position: vector_float3( 0.5, -0.5, -0.5), normal: vector_float3(0.0, 0.0, -1.0)),
+            LightingVertex(position: vector_float3( -0.5, -0.5, -0.5), normal: vector_float3(0.0, 0.0, -1.0)),
+            LightingVertex(position: vector_float3( -0.5,  0.5, -0.5), normal: vector_float3(0.0, 0.0, -1.0)),
+            LightingVertex(position: vector_float3( 0.5,  0.5, -0.5), normal: vector_float3(0.0, 0.0, -1.0)),
+            
+            // left
+            LightingVertex(position: vector_float3( -0.5, -0.5, -0.5), normal: vector_float3(-1.0, 0.0, 0.0)),
+            LightingVertex(position: vector_float3( -0.5, -0.5, 0.5), normal: vector_float3(-1.0, 0.0, 0.0)),
+            LightingVertex(position: vector_float3( -0.5,  0.5, 0.5), normal: vector_float3(-1.0, 0.0, 0.0)),
+            LightingVertex(position: vector_float3( -0.5,  0.5, -0.5), normal: vector_float3(-1.0, 0.0, 0.0)),
+            
+            // top
+            LightingVertex(position: vector_float3( -0.5,  0.5, 0.5), normal: vector_float3(0.0, 1.0, 0.0)),
+            LightingVertex(position: vector_float3(  0.5,  0.5, 0.5), normal: vector_float3(0.0, 1.0, 0.0)),
+            LightingVertex(position: vector_float3(  0.5,  0.5, -0.5), normal: vector_float3(0.0, 1.0, 0.0)),
+            LightingVertex(position: vector_float3( -0.5,  0.5, -0.5), normal: vector_float3(0.0, 1.0, 0.0)),
+            
+            // bottom
+            LightingVertex(position: vector_float3( -0.5, -0.5, -0.5), normal: vector_float3(0.0, -1.0, 0.0)),
+            LightingVertex(position: vector_float3(  0.5, -0.5, -0.5), normal: vector_float3(0.0, -1.0, 0.0)),
+            LightingVertex(position: vector_float3(  0.5, -0.5,  0.5), normal: vector_float3(0.0, -1.0, 0.0)),
+            LightingVertex(position: vector_float3( -0.5, -0.5,  0.5), normal: vector_float3(0.0, -1.0, 0.0)),
         ]
-        var matrix = LightingMath.rotateYMatrix(angle)
+        let matrix = LightingMath.rotateYMatrix(angle)
         var uniforms = LightingUniforms(modelMatrix: matrix)
         
         encorder.setVertexBytes(&verticies, length: MemoryLayout<LightingVertex>.stride * verticies.count, index: 0)
         encorder.setVertexBytes(&uniforms, length: MemoryLayout<LightingUniforms>.stride, index: 1)
+        
+        encorder.setCullMode(.back)
+        encorder.setFrontFacing(.counterClockwise)
         encorder.drawIndexedPrimitives(type: .triangle,
                                        indexCount: 6 * 6,
                                        indexType: .uint16,
