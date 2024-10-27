@@ -20,6 +20,8 @@ class MTLLightingRenderer {
     var renderPipelineState: MTLRenderPipelineState?
     var depthStencilState: MTLDepthStencilState?
     
+    var angle: Float = 0.0
+    
     init(device: MTLDevice) {
         self.device = device
         
@@ -116,10 +118,11 @@ class MTLLightingRenderer {
             LightingVertex(position: vector_float3( 0.5,  0.5, -0.5)),
             LightingVertex(position: vector_float3( 0.5, -0.5, -0.5)),
         ]
+        var matrix = LightingMath.rotateYMatrix(angle)
+        var uniforms = LightingUniforms(modelMatrix: matrix)
+        
         encorder.setVertexBytes(&verticies, length: MemoryLayout<LightingVertex>.stride * verticies.count, index: 0)
-        
-        
-        
+        encorder.setVertexBytes(&uniforms, length: MemoryLayout<LightingUniforms>.stride, index: 1)
         encorder.drawIndexedPrimitives(type: .triangle,
                                        indexCount: 6 * 6,
                                        indexType: .uint16,
@@ -136,5 +139,7 @@ class MTLLightingRenderer {
         commandBuffer.present(drawable)
         
         commandBuffer.commit()
+        
+        angle += 0.01
     }
 }

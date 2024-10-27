@@ -16,9 +16,10 @@ struct VertexOut {
 };
 
 vertex VertexOut lighting_vertex_main(uint vertexID [[vertex_id]],
-                             constant LightingVertex* vertices [[buffer(0)]]) {
+                                      constant LightingVertex* vertices [[buffer(0)]],
+                                      constant LightingUniforms& uniforms [[buffer(1)]]) {
     VertexOut out;
-    out.position = float4(vertices[vertexID].position, 1.0);
+    out.position = uniforms.modelMatrix * float4(vertices[vertexID].position, 1.0);
     
     return out;
 }

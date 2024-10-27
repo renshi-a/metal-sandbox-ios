@@ -2,7 +2,7 @@
 
 iOS Sandbox for learning Metal Shader.
 
-This course provides a simple environment for learning shaders, assuming you want to incorporate Metal into your iOS application.
+This course provides a simple environment for learning shaders, assuming you want to incorporate Metal into your iOS/iPad application.
 
 When it comes to learning GPU rendering, there are many options available today: Metal, Vulcan, OpenGL, WebGL, WebGPU... Each process is very similar, with the same core concepts and flow, but of course there are issues specific to each platform. Or they can be a bigger problem.
 
@@ -35,12 +35,15 @@ vertex VertexOut clear_color_vertex_main(uint vertexID [[vertex_id]],
 }
 ```
 
-
 The fragment shader allows you to specify how to change the colors within the area to be drawn. 
 In this example, we first filled the area with blue.
+
 ```c
 [[fragment]]
 float4 clear_color_fragment_main(FragmentIn in [[stage_in]]) {
     return float4(0.f, 0.f, 1.f, 1.0f);
 }
 ```
+
+## 003 UniformTime
+
